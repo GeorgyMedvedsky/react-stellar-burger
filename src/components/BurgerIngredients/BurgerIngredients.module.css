@@ -1,5 +1,6 @@
 .burgerIngredients {
-    width: 41%;
+    max-width: 600px;
+    margin-left: auto;
 }
 .burgerIngredients__title {
     margin-top: 40px;
@@ -12,7 +13,7 @@
     text-decoration: none;
 }
 .burgerIngredients__items {
-    height: 912px;
+    height: 756px;
     overflow: scroll;
     overflow-x: hidden;
 }

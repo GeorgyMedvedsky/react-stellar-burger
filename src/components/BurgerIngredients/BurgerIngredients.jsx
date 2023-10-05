@@ -62,21 +62,23 @@ export default function BurgerIngredients(props) {
     return (
         <section className={styles.burgerIngredients}>
             <h1 className={`${styles.burgerIngredients__title} text text_type_main-large`}>Соберите бургер</h1>
-            <div className={styles.burgerIngredients__tabs}>
-                <Tab value="Бургер" active={current === 'Бургер'} onClick={setCurrent}>
-                    Бургер
-                </Tab>
-                <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
-                    Соусы 
-                </Tab>
-                <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
-                    Начинки
-                </Tab>
-            </div>
-            <div className={`${styles.burgerIngredients__items} pl-4 pr-4 custom-scroll`}>
-                <IngredientsCategory items={buns}/>
-                <IngredientsCategory items={sauces}/>
-                <IngredientsCategory items={fillings}/>
+            <div>
+                <div className={styles.burgerIngredients__tabs}>
+                    <Tab value="Бургер" active={current === 'Бургер'} onClick={setCurrent}>
+                        Бургер
+                    </Tab>
+                    <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+                        Соусы 
+                    </Tab>
+                    <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
+                        Начинки
+                    </Tab>
+                </div>
+                <div className={`${styles.burgerIngredients__items} pl-4 pr-4 custom-scroll`}>
+                    <IngredientsCategory items={buns}/>
+                    <IngredientsCategory items={sauces}/>
+                    <IngredientsCategory items={fillings}/>
+                </div>
             </div>
         </section>
   )
