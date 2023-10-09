@@ -1,0 +1,13 @@
+.ingredientItem {
+    display: flex;
+    flex-direction: column;
+    width: 272px;
+    height: 208px;
+    align-items: center;
+}
+.ingredientItem__price {
+    display: flex;
+}
+.ingredientItem__name {
+    text-align: center;
+}

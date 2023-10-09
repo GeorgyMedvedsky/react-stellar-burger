@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import styles from "./BurgerConstructor.module.css"
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,12 +7,25 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 
-export default function BurgerConstructor(props) {
-    const bun = props.data.find(item => item.name === "Краторная булка N-200i")
-    
-    const ingredients = props.data.filter(item => {
-        return item.name !== "Краторная булка N-200i" && item.name !== "Флюоресцентная булка R2-D3"
+export default function BurgerConstructor({data}) {
+    const bun = data.find(item => item.type === "bun")
+    const ingredients = data.filter(item => {
+        return item.type !== "bun"
     })
+    BurgerConstructor.propTypes = PropTypes.shape([{
+        "_id": PropTypes.string,
+        "name": PropTypes.string,
+        "type": PropTypes.string,
+        "proteins": PropTypes.number,
+        "fat": PropTypes.number,
+        "carbohydrates": PropTypes.number,
+        "calories": PropTypes.number,
+        "price": PropTypes.number,
+        "image": PropTypes.string,
+        "image_mobile": PropTypes.string,
+        "image_large": PropTypes.string,
+        "__v": PropTypes.number,
+    }])
     
     return (
         <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 `}>

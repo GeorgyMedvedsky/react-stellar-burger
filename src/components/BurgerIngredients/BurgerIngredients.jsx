@@ -1,83 +1,64 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import styles from './BurgerIngredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import IngredientsCategory from './IngredientsCategory/IngredientsCategory'
 
-function IngredientItem(props) {
-    const {image, price, name} = props.data
-    return (
-        <div className={styles.ingredientItem}>
-            <img src={image} alt={name}/>
-            <p className={`${styles.ingredientItem__price} text text_type_digits-default mt-2 mb-2`}>
-                <span className='mr-4'>{price}</span>
-                <CurrencyIcon type="primary" />
-            </p>
-            <h3 className={`${styles.ingredientItem__name} text text_type_main-default`}>
-                {name}
-            </h3>
-            
-        </div>
-    )
-}
-
-function IngredientsCategory(props) {
-    let categoryType = props.items[0].type
-    let heading
-
-    switch (categoryType) {
-        case 'bun':
-            heading = 'Булки'
-            break;
-        case 'main':
-            heading = 'Начинки'
-            break;
-        case 'sauce':
-            heading = 'Соусы'
-            break;
-        default:
-            break;
-    }
-
-    return (
-        <div className='mt-10'>
-            <h2 className='text text_type_main-medium mb-6'>{heading}</h2>
-            <ul className={styles.ingredientsCategory__list}>
-            {props.items.map(item => {
-                return (
-                    <li>
-                        <IngredientItem data={item} key={item._id}/>
-                    </li>
-                )
-            })}  
-            </ul>
-        </div>
-    )
-}
-
-export default function BurgerIngredients(props) {
+export default function BurgerIngredients({data}) {
     const [current, setCurrent] = React.useState('Бургер')
-    const buns = props.data.filter(item => item.type === 'bun')
-    const fillings = props.data.filter(item => item.type === 'main')
-    const sauces = props.data.filter(item => item.type === 'sauce')
+
+    const buns = data.filter(item => item.type === 'bun')
+    const fillings = data.filter(item => item.type === 'main')
+    const sauces = data.filter(item => item.type === 'sauce')
+
+    const scrollTo = (type, ref) => {
+        setCurrent(type);
+        ref.current?.scrollIntoView({behavior: 'smooth'});
+    };
+
+    const bunsRef = React.useRef(null);
+    const fillingsRef = React.useRef(null);
+    const saucesRef = React.useRef(null);
+
+    BurgerIngredients.propTypes = PropTypes.shape([{
+        "_id": PropTypes.string,
+        "name": PropTypes.string,
+        "type": PropTypes.string,
+        "proteins": PropTypes.number,
+        "fat": PropTypes.number,
+        "carbohydrates": PropTypes.number,
+        "calories": PropTypes.number,
+        "price": PropTypes.number,
+        "image": PropTypes.string,
+        "image_mobile": PropTypes.string,
+        "image_large": PropTypes.string,
+        "__v": PropTypes.number,
+    }])
     return (
         <section className={styles.burgerIngredients}>
             <h1 className={`${styles.burgerIngredients__title} text text_type_main-large`}>Соберите бургер</h1>
             <div>
                 <div className={styles.burgerIngredients__tabs}>
-                    <Tab value="Бургер" active={current === 'Бургер'} onClick={setCurrent}>
+                    <Tab value="Бургер" active={current === 'Бургер'} onClick={() => scrollTo('Бургер', bunsRef)}>
                         Бургер
                     </Tab>
-                    <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+                    <Tab value="Соусы" active={current === 'Соусы'} onClick={() => scrollTo('Соусы', saucesRef)}>
                         Соусы 
                     </Tab>
-                    <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
+                    <Tab value="Начинки" active={current === 'Начинки'} onClick={() => scrollTo('Начинки', fillingsRef)}>
                         Начинки
                     </Tab>
                 </div>
                 <div className={`${styles.burgerIngredients__items} pl-4 pr-4 custom-scroll`}>
-                    <IngredientsCategory items={buns}/>
-                    <IngredientsCategory items={sauces}/>
-                    <IngredientsCategory items={fillings}/>
+                    <div className='mt-10' ref={bunsRef}>
+                        <IngredientsCategory items={buns}/>
+                    </div>
+                    <div className='mt-10' ref={saucesRef}>
+                        <IngredientsCategory items={sauces}/>
+                    </div>
+                    <div className='mt-10' ref={fillingsRef}>
+                        <IngredientsCategory items={fillings}/>
+                    </div>
                 </div>
             </div>
         </section>
