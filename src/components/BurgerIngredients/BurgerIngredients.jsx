@@ -20,7 +20,7 @@ export default function BurgerIngredients({data}) {
     const fillingsRef = React.useRef(null);
     const saucesRef = React.useRef(null);
 
-    BurgerIngredients.propTypes = PropTypes.shape([{
+    BurgerIngredients.propTypes = PropTypes.shape([{ 
         "_id": PropTypes.string,
         "name": PropTypes.string,
         "type": PropTypes.string,
