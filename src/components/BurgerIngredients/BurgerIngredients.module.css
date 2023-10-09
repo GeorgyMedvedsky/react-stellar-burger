@@ -1,0 +1,19 @@
+.burgerIngredients {
+    max-width: 600px;
+    margin-left: auto;
+}
+.burgerIngredients__title {
+    margin-top: 40px;
+}
+.burgerIngredients__tabs {
+    display: flex;
+    margin-top: 20px;
+}
+.burgerIngredients__tabsLink {
+    text-decoration: none;
+}
+.burgerIngredients__items {
+    height: 756px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
