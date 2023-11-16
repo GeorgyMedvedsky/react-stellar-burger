@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types';
-import styles from './BurgerIngredients.module.css'
+import { useState, useRef } from 'react'
+//import PropTypes from 'prop-types';
+import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import IngredientsCategory from './IngredientsCategory/IngredientsCategory'
+import IngredientsCategory from './ingredients-category/ingredients-category'
 
 export default function BurgerIngredients({data}) {
-    const [current, setCurrent] = React.useState('Бургер')
+    const [current, setCurrent] = useState('Бургер')
 
     const buns = data.filter(item => item.type === 'bun')
     const fillings = data.filter(item => item.type === 'main')
@@ -16,24 +16,25 @@ export default function BurgerIngredients({data}) {
         ref.current?.scrollIntoView({behavior: 'smooth'});
     };
 
-    const bunsRef = React.useRef(null);
-    const fillingsRef = React.useRef(null);
-    const saucesRef = React.useRef(null);
+    const bunsRef = useRef(null);
+    const fillingsRef = useRef(null);
+    const saucesRef = useRef(null);
 
-    BurgerIngredients.propTypes = PropTypes.shape([{ 
-        "_id": PropTypes.string,
-        "name": PropTypes.string,
-        "type": PropTypes.string,
-        "proteins": PropTypes.number,
-        "fat": PropTypes.number,
-        "carbohydrates": PropTypes.number,
-        "calories": PropTypes.number,
-        "price": PropTypes.number,
-        "image": PropTypes.string,
-        "image_mobile": PropTypes.string,
-        "image_large": PropTypes.string,
-        "__v": PropTypes.number,
-    }])
+    // BurgerIngredients.propTypes = PropTypes.shape([{ 
+    //     "_id": PropTypes.string,
+    //     "name": PropTypes.string,
+    //     "type": PropTypes.string,
+    //     "proteins": PropTypes.number,
+    //     "fat": PropTypes.number,
+    //     "carbohydrates": PropTypes.number,
+    //     "calories": PropTypes.number,
+    //     "price": PropTypes.number,
+    //     "image": PropTypes.string,
+    //     "image_mobile": PropTypes.string,
+    //     "image_large": PropTypes.string,
+    //     "__v": PropTypes.number,
+    // }])
+
     return (
         <section className={styles.burgerIngredients}>
             <h1 className={`${styles.burgerIngredients__title} text text_type_main-large`}>Соберите бургер</h1>

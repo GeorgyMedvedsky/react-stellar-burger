@@ -1,6 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types';
-import styles from "./BurgerConstructor.module.css"
+//import PropTypes from 'prop-types';
+import styles from "./burger-constructor.module.css"
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -12,20 +11,20 @@ export default function BurgerConstructor({data}) {
     const ingredients = data.filter(item => {
         return item.type !== "bun"
     })
-    BurgerConstructor.propTypes = PropTypes.shape([{
-        "_id": PropTypes.string,
-        "name": PropTypes.string,
-        "type": PropTypes.string,
-        "proteins": PropTypes.number,
-        "fat": PropTypes.number,
-        "carbohydrates": PropTypes.number,
-        "calories": PropTypes.number,
-        "price": PropTypes.number,
-        "image": PropTypes.string,
-        "image_mobile": PropTypes.string,
-        "image_large": PropTypes.string,
-        "__v": PropTypes.number,
-    }])
+    // BurgerConstructor.propTypes = PropTypes.shape([{
+    //     "_id": PropTypes.string,
+    //     "name": PropTypes.string,
+    //     "type": PropTypes.string,
+    //     "proteins": PropTypes.number,
+    //     "fat": PropTypes.number,
+    //     "carbohydrates": PropTypes.number,
+    //     "calories": PropTypes.number,
+    //     "price": PropTypes.number,
+    //     "image": PropTypes.string,
+    //     "image_mobile": PropTypes.string,
+    //     "image_large": PropTypes.string,
+    //     "__v": PropTypes.number,
+    // }])
     
     return (
         <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 `}>
@@ -37,22 +36,21 @@ export default function BurgerConstructor({data}) {
                     price={bun.price}
                     thumbnail={bun.image}
                 />
-                <div className={`${styles.constructor__items} custom-scroll pr-2`}>
+                <ul className={`${styles.constructor__items} custom-scroll`}>
                     {ingredients.map(item => {
                         return (
-                            <div className={styles.constructor__item}>
+                            <li className={styles.constructor__item} key={item._id}>
                                 <DragIcon type="primary" />
                                 <ConstructorElement
-                                    key={item._id}
                                     text={item.name}
                                     price={item.price}
                                     thumbnail={item.image}
                                 />
                             
-                            </div>
+                            </li>
                         )
                     })}                    
-                </div>
+                </ul>
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
