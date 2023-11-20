@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients"
 import BurgerConstructor from "../burger-constructor/burger-constructor"
+import Modal from "../modal/modal";
 
 const URL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -32,9 +33,16 @@ function App() {
             <BurgerConstructor data={data}/>
           </>
         }
-        <button>onclick
-        </button>
       </main>
+      <main className={styles.content}>
+        {data.length > 0 &&
+          <>
+            <BurgerIngredients data={data}/>
+            <BurgerConstructor data={data}/>
+          </>
+        }
+      </main>
+      <Modal />
     </div>
   );
 }

@@ -30,15 +30,17 @@ export default function Modal({children}) {
 
   return (
     visible && createPortal(
-      <>
+      <div className={`${styles.modal__container}`}>
         <div className={`${styles.modal} p-10`} onClick={e => e.stopPropagation()}>
           {children}
-          <CloseIcon type="primary" onClick={handleCloseModal}/>
+          <button type="button" className={`${styles.closeBtn}`}>
+            <CloseIcon type="primary" onClick={handleCloseModal}/>
+          </button>
         </div>
         <div onClick={handleCloseModal}>
           <ModalOverlay/>
         </div>
-      </>
+      </div>
     , modalRoot)
   )
 }
