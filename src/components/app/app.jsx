@@ -32,6 +32,8 @@ function App() {
             <BurgerConstructor data={data}/>
           </>
         }
+        <button>onclick
+        </button>
       </main>
     </div>
   );
