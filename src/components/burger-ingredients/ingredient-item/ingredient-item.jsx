@@ -1,15 +1,9 @@
-//import PropTypes from 'prop-types';
 import styles from './ingredient-item.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 export default function IngredientItem({dataItem}) {
-    const {image, price, name} = dataItem
-    // IngredientItem.propTypes = PropTypes.shape({
-    //     "name": PropTypes.string,
-    //     "price": PropTypes.number,
-    //     "image": PropTypes.string,
-    // })
-
+    const {image, price, name} = dataItem;
+    
     return (
         <div className={styles.ingredientItem}>
             <img src={image} alt={name} />

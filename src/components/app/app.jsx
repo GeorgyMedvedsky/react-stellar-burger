@@ -9,6 +9,7 @@ const URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 function App() {
   const [data, setData] = useState([]);
+  const [modalActive, setModalActive] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,15 +35,8 @@ function App() {
           </>
         }
       </main>
-      <main className={styles.content}>
-        {data.length > 0 &&
-          <>
-            <BurgerIngredients data={data}/>
-            <BurgerConstructor data={data}/>
-          </>
-        }
-      </main>
-      <Modal />
+      <button onClick={() => setModalActive(true)}>Click me!</button>
+      <Modal active={modalActive} setActive={setModalActive} />
     </div>
   );
 }

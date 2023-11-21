@@ -1,45 +1,43 @@
 import styles from './modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/modal-overlay'
-import { useState, useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 
 const modalRoot = document.getElementById('root');
 
-export default function Modal({children}) {
-  const [visible, setVisible] = useState(true)
+export default function Modal({children, active, setActive}) {
 
-  const handleCloseModal = () => {
-    setVisible(false)
-  }
+  const handleCloseModal = useCallback(() => {
+    setActive(false)
+  }, [setActive])
 
-  const handleEscClose = (event) => {
+  const handleCloseModalByEsc = useCallback((event) => {
     if (event.key === 'Escape') {
       handleCloseModal()
     }
-  }
+  }, [handleCloseModal])
   
   useEffect(() => {
-    if (visible) {
-      window.addEventListener('keydown', handleEscClose)
+    if (active) {
+      window.addEventListener('keydown', handleCloseModalByEsc)
     }
     return () => {
-      window.removeEventListener('keydown', handleEscClose)
+      window.removeEventListener('keydown', handleCloseModalByEsc)
     }
-  }, [visible])
+  }, [active, handleCloseModalByEsc])
 
   return (
-    visible && createPortal(
-      <div className={`${styles.modal__container}`}>
-        <div className={`${styles.modal} p-10`} onClick={e => e.stopPropagation()}>
-          {children}
+    active && createPortal(
+      <div className={`${styles.modal}`} onClick={handleCloseModal}>
+        <div className={`${styles.modal__content} p-10`}>
+          
           <button type="button" className={`${styles.closeBtn}`}>
             <CloseIcon type="primary" onClick={handleCloseModal}/>
           </button>
+          {children}
         </div>
-        <div onClick={handleCloseModal}>
-          <ModalOverlay/>
-        </div>
+        <ModalOverlay/>
       </div>
     , modalRoot)
   )
