@@ -3,13 +3,11 @@ import { useState, useEffect } from "react";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients"
 import BurgerConstructor from "../burger-constructor/burger-constructor"
-import Modal from "../modal/modal";
 
 const URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 function App() {
   const [data, setData] = useState([]);
-  const [modalActive, setModalActive] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,8 +33,6 @@ function App() {
           </>
         }
       </main>
-      <button onClick={() => setModalActive(true)}>Click me!</button>
-      <Modal active={modalActive} setActive={setModalActive} />
     </div>
   );
 }

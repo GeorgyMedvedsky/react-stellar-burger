@@ -1,44 +1,49 @@
 import styles from './modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import ModalOverlay from '../modal-overlay/modal-overlay'
 import { useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
+import ModalOverlay from '../modal-overlay/modal-overlay'
 
 const modalRoot = document.getElementById('root');
 
-export default function Modal({children, active, setActive}) {
+export default function Modal({children, isOpen, onClose}) {
 
-  const handleCloseModal = useCallback(() => {
-    setActive(false)
-  }, [setActive])
+  const handleClose = useCallback(() => {
+    onClose()
+  }, [onClose])
 
-  const handleCloseModalByEsc = useCallback((event) => {
-    if (event.key === 'Escape') {
-      handleCloseModal()
-    }
-  }, [handleCloseModal])
-  
   useEffect(() => {
-    if (active) {
-      window.addEventListener('keydown', handleCloseModalByEsc)
+    const handleCloseByEsc = (e) => {
+      if (e.key === 'Escape') {
+        handleClose()
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleCloseByEsc)
     }
+
     return () => {
-      window.removeEventListener('keydown', handleCloseModalByEsc)
-    }
-  }, [active, handleCloseModalByEsc])
+      document.removeEventListener('keydown', handleCloseByEsc)
+    };
+  }, [isOpen, handleClose])
+
+  if (!isOpen) {
+    return null
+  }
 
   return (
-    active && createPortal(
-      <div className={`${styles.modal}`} onClick={handleCloseModal}>
-        <div className={`${styles.modal__content} p-10`}>
-          
+    isOpen && createPortal(
+      <div className={`${styles.modal}`}>
+        <div className={`${styles.modal__content} p-10`} onClick={(e) => {e.stopPropagation()}}>
           <button type="button" className={`${styles.closeBtn}`}>
-            <CloseIcon type="primary" onClick={handleCloseModal}/>
+            <CloseIcon type="primary" onClick={handleClose}/>
           </button>
-          {children}
+          <div>{children}</div>
         </div>
-        <ModalOverlay/>
+        <ModalOverlay onClose={onClose} />
       </div>
     , modalRoot)
-  )
-}
+    )
+  }
+  
