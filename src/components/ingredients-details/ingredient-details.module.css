@@ -1,0 +1,19 @@
+.ingredientDetails__image{
+    width: 480px;
+    height: 240px;
+}
+.ingredientDetails__detailsList{
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+    display: flex;
+    gap: 20px;
+}
+.ingredientDetails__detailsItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ingredientDetails__detailsText{
+    margin: 0;
+}

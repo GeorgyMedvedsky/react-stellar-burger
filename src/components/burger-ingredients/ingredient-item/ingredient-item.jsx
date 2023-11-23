@@ -2,6 +2,7 @@ import styles from './ingredient-item.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from '../../modal/modal';
 import useModal from '../../../hooks/useModal';
+import IngredientDetails from '../../ingredients-details/ingredient-details';
 
 export default function IngredientItem({dataItem}) {
     const {image, price, name} = dataItem;
@@ -20,8 +21,8 @@ export default function IngredientItem({dataItem}) {
                 </h3>
             </div>
 
-            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <h2>{name}</h2>
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={'Детали ингредиента'}>
+                <IngredientDetails data={dataItem}/>
             </Modal>
         </>
     )

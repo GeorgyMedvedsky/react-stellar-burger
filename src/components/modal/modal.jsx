@@ -6,7 +6,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay'
 
 const modalRoot = document.getElementById('root');
 
-export default function Modal({children, isOpen, onClose}) {
+export default function Modal({children, isOpen, onClose, title}) {
 
   const handleClose = useCallback(() => {
     onClose()
@@ -35,11 +35,16 @@ export default function Modal({children, isOpen, onClose}) {
   return (
     isOpen && createPortal(
       <div className={`${styles.modal}`}>
-        <div className={`${styles.modal__content} p-10`} onClick={(e) => {e.stopPropagation()}}>
-          <button type="button" className={`${styles.closeBtn}`}>
-            <CloseIcon type="primary" onClick={handleClose}/>
-          </button>
-          <div>{children}</div>
+        <div className={`${styles.modal__container} p-10`} onClick={(e) => {e.stopPropagation()}}>
+          <header className={`${styles.modal__heading}`}>
+            <h2 className='text text_type_main-large'>{title}</h2>
+            <button type="button" className={`${styles.closeBtn}`}>
+              <CloseIcon type="primary" onClick={handleClose}/>
+            </button>
+          </header>
+          <div className={`${styles.modal__content}`}>
+            {children}
+          </div>
         </div>
         <ModalOverlay onClose={onClose} />
       </div>

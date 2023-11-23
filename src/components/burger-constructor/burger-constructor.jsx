@@ -61,7 +61,6 @@ export default function BurgerConstructor({data}) {
             </section>
             
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <h2>Ваш заказ</h2>
             </Modal>
         </>
     )
