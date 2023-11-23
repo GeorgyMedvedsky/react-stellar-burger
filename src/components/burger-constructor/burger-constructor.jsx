@@ -5,6 +5,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from "../modal/modal"
 import useModal from "../../hooks/useModal"
+import OrderDetails from "../order-details/order-details"
 
 export default function BurgerConstructor({data}) {
     const bun = data.find(item => item.type === "bun")
@@ -61,6 +62,7 @@ export default function BurgerConstructor({data}) {
             </section>
             
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                <OrderDetails />
             </Modal>
         </>
     )
