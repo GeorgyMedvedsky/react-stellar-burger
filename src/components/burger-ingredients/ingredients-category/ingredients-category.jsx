@@ -1,5 +1,6 @@
 import styles from './ingredients-category.module.css'
 import IngredientItem from '../ingredient-item/ingredient-item'
+import PropTypes from 'prop-types'
 
 export default function IngredientsCategory({items}) {
     const titles = {
@@ -9,6 +10,23 @@ export default function IngredientsCategory({items}) {
     }
     const categoryType = items[0].type
     const heading = titles[categoryType]
+
+    IngredientsCategory.propTypes = {
+        'items': PropTypes.arrayOf(PropTypes.shape({
+            "_id": PropTypes.string,
+            "name": PropTypes.string,
+            "type": PropTypes.string,
+            "proteins": PropTypes.number,
+            "fat": PropTypes.number,
+            "carbohydrates": PropTypes.number,
+            "calories": PropTypes.number,
+            "price": PropTypes.number,
+            "image": PropTypes.string,
+            "image_mobile": PropTypes.string,
+            "image_large": PropTypes.string,
+            "__v": PropTypes.number,
+         }))
+    }
 
     return (
         <>

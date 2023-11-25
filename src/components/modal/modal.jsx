@@ -3,6 +3,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import ModalOverlay from '../modal-overlay/modal-overlay'
+import PropTypes from 'prop-types'
 
 const modalRoot = document.getElementById('root');
 
@@ -30,6 +31,13 @@ export default function Modal({children, isOpen, onClose, title}) {
 
   if (!isOpen) {
     return null
+  }
+
+  Modal.propTypes = {
+    "children": PropTypes.object,
+    "isOpen": PropTypes.bool,
+    "onClose": PropTypes.func,
+    "title": PropTypes.string,
   }
 
   return (

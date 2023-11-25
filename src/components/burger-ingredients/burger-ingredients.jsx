@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsCategory from './ingredients-category/ingredients-category'
+import PropTypes from 'prop-types'
 
 export default function BurgerIngredients({data}) {
     const [current, setCurrent] = useState('Бургер')
@@ -18,6 +19,23 @@ export default function BurgerIngredients({data}) {
     const bunsRef = useRef(null);
     const fillingsRef = useRef(null);
     const saucesRef = useRef(null);
+
+    BurgerIngredients.propTypes = {
+        'data': PropTypes.shape({
+            "_id": PropTypes.string,
+            "name": PropTypes.string,
+            "type": PropTypes.string,
+            "proteins": PropTypes.number,
+            "fat": PropTypes.number,
+            "carbohydrates": PropTypes.number,
+            "calories": PropTypes.number,
+            "price": PropTypes.number,
+            "image": PropTypes.string,
+            "image_mobile": PropTypes.string,
+            "image_large": PropTypes.string,
+            "__v": PropTypes.number,
+         })
+    }
 
     return (
         <section className={styles.burgerIngredients}>

@@ -3,10 +3,28 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import Modal from '../../modal/modal';
 import useModal from '../../../hooks/useModal';
 import IngredientDetails from '../../ingredients-details/ingredient-details';
+import PropTypes from 'prop-types'
 
 export default function IngredientItem({dataItem}) {
     const {image, price, name} = dataItem;
     const {isModalOpen, handleOpenModal, handleCloseModal} = useModal()
+    
+    IngredientItem.propTypes = {
+        'dataItem': PropTypes.shape({
+            "_id": PropTypes.string,
+            "name": PropTypes.string,
+            "type": PropTypes.string,
+            "proteins": PropTypes.number,
+            "fat": PropTypes.number,
+            "carbohydrates": PropTypes.number,
+            "calories": PropTypes.number,
+            "price": PropTypes.number,
+            "image": PropTypes.string,
+            "image_mobile": PropTypes.string,
+            "image_large": PropTypes.string,
+            "__v": PropTypes.number,
+         })
+    }
     
     return (
         <>
