@@ -7,6 +7,7 @@ import Modal from "../modal/modal"
 import useModal from "../../hooks/useModal"
 import OrderDetails from "../order-details/order-details"
 import PropTypes from 'prop-types'
+import { ingredientPropType } from "../../utils/prop-types"
 
 export default function BurgerConstructor({data}) {
     const bun = data.find(item => item.type === "bun")
@@ -15,20 +16,7 @@ export default function BurgerConstructor({data}) {
     })
 
     BurgerConstructor.propTypes = {
-        'data': PropTypes.shape({
-            "_id": PropTypes.string,
-            "name": PropTypes.string,
-            "type": PropTypes.string,
-            "proteins": PropTypes.number,
-            "fat": PropTypes.number,
-            "carbohydrates": PropTypes.number,
-            "calories": PropTypes.number,
-            "price": PropTypes.number,
-            "image": PropTypes.string,
-            "image_mobile": PropTypes.string,
-            "image_large": PropTypes.string,
-            "__v": PropTypes.number,
-         })
+        "data": PropTypes.arrayOf(ingredientPropType)
     }
 
     const {isModalOpen, handleOpenModal, handleCloseModal} = useModal()
