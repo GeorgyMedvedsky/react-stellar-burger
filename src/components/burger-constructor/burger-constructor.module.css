@@ -12,6 +12,9 @@
     height: 700px;
 }
 .constructor__items {
+    margin: 0;
+    padding: 0;
+    padding-right: 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;

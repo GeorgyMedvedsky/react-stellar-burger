@@ -1,16 +1,47 @@
+import { useState, useEffect } from "react";
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
-import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients"
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor"
+import AppHeader from "../app-header/app-header";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients"
+import BurgerConstructor from "../burger-constructor/burger-constructor"
+
+const URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 function App() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if(isLoading) {
+      const fetchData = async () => {
+        try{
+          const res = await fetch(URL);
+          const result = res.ok ? await res.json() : console.log('Ошибка:', res.status)
+          setData(result.data);
+          setIsLoading(false);
+        } catch(err) {
+          console.log(err);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+      fetchData();
+    }
+  }, [isLoading]);
+  
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.content}>
-        <BurgerIngredients data={data}/>
-        <BurgerConstructor data={data}/>
+        {isLoading ? (
+          <p className={`text text_type_main-medium`}>Загрузка...</p>
+        ) : data.length > 0 ? (
+          <>
+            <BurgerIngredients data={data} />
+            <BurgerConstructor data={data} />
+          </>
+        ) : (
+          <p className={`text text_type_main-medium`}>Нет доступных данных.</p>
+        )}
       </main>
     </div>
   );

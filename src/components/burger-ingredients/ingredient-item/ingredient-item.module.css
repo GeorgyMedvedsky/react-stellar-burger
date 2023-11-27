@@ -5,6 +5,9 @@
     height: 208px;
     align-items: center;
 }
+.ingredientItem:hover{
+    cursor: pointer;
+}
 .ingredientItem__price {
     display: flex;
 }
