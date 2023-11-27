@@ -6,12 +6,12 @@ export default function ModalOverlay({onClose}) {
     onClose()
   }
 
-  ModalOverlay.propTypes = {
-    'onClose': PropTypes.func,
-  }
-
   return (
     <div className={styles.overlay} onClick={handleClick}>
     </div>
   )
+}
+
+ModalOverlay.propTypes = {
+  'onClose': PropTypes.func,
 }

@@ -9,10 +9,6 @@ export default function IngredientItem({dataItem}) {
     const {image, price, name} = dataItem;
     const {isModalOpen, handleOpenModal, handleCloseModal} = useModal()
     
-    IngredientItem.propTypes = {
-        'dataItem': ingredientPropType
-    }
-    
     return (
         <>
             <div className={styles.ingredientItem} onClick={handleOpenModal}>
@@ -31,4 +27,8 @@ export default function IngredientItem({dataItem}) {
             </Modal>
         </>
     )
+}
+
+IngredientItem.propTypes = {
+    'dataItem': ingredientPropType
 }

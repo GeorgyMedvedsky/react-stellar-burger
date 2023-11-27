@@ -15,7 +15,7 @@ function App() {
       const fetchData = async () => {
         try{
           const res = await fetch(URL);
-          const result = await res.json();
+          const result = res.ok ? await res.json() : console.log('Ошибка:', res.status)
           setData(result.data);
           setIsLoading(false);
         } catch(err) {

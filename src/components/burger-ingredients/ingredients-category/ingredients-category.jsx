@@ -3,18 +3,15 @@ import IngredientItem from '../ingredient-item/ingredient-item'
 import PropTypes from 'prop-types'
 import { ingredientPropType } from '../../../utils/prop-types'
 
+const titles = {
+    'bun': 'Булки',
+    'main': 'Начинки',
+    'sauce': 'Соусы'
+}
+
 export default function IngredientsCategory({items}) {
-    const titles = {
-        'bun': 'Булки',
-        'main': 'Начинки',
-        'sauce': 'Соусы'
-    }
     const categoryType = items[0].type
     const heading = titles[categoryType]
-
-    IngredientsCategory.propTypes = {
-        'items': PropTypes.arrayOf(ingredientPropType)
-    }
 
     return (
         <>
@@ -30,4 +27,8 @@ export default function IngredientsCategory({items}) {
             </ul>
         </>
     )
+}
+
+IngredientsCategory.propTypes = {
+    'items': PropTypes.arrayOf(ingredientPropType)
 }

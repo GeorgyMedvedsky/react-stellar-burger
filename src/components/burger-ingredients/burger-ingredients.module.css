@@ -13,7 +13,7 @@
     text-decoration: none;
 }
 .burgerIngredients__items {
-    height: 756px;
+    height: calc(100vh - 300px);
     overflow: scroll;
     overflow-x: hidden;
 }

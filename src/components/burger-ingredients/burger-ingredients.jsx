@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import styles from './burger-ingredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsCategory from './ingredients-category/ingredients-category'
@@ -8,9 +8,9 @@ import { ingredientPropType } from '../../utils/prop-types'
 export default function BurgerIngredients({data}) {
     const [current, setCurrent] = useState('Бургер')
 
-    const buns = data.filter(item => item.type === 'bun')
-    const fillings = data.filter(item => item.type === 'main')
-    const sauces = data.filter(item => item.type === 'sauce')
+    const buns = useMemo(() => data.filter(item => item.type === 'bun'), [data])
+    const fillings = useMemo(() => data.filter(item => item.type === 'main'), [data])
+    const sauces = useMemo(() => data.filter(item => item.type === 'sauce'), [data])
 
     const scrollTo = (type, ref) => {
         setCurrent(type);
@@ -20,10 +20,6 @@ export default function BurgerIngredients({data}) {
     const bunsRef = useRef(null);
     const fillingsRef = useRef(null);
     const saucesRef = useRef(null);
-
-    BurgerIngredients.propTypes = {
-        "data": PropTypes.arrayOf(ingredientPropType)
-    }
 
     return (
         <section className={styles.burgerIngredients}>
@@ -54,4 +50,8 @@ export default function BurgerIngredients({data}) {
             </div>
         </section>
   )
+}
+
+BurgerIngredients.propTypes = {
+    "data": PropTypes.arrayOf(ingredientPropType)
 }

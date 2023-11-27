@@ -15,10 +15,6 @@ export default function BurgerConstructor({data}) {
         return item.type !== "bun"
     })
 
-    BurgerConstructor.propTypes = {
-        "data": PropTypes.arrayOf(ingredientPropType)
-    }
-
     const {isModalOpen, handleOpenModal, handleCloseModal} = useModal()
 
     return (
@@ -72,4 +68,8 @@ export default function BurgerConstructor({data}) {
             </Modal>
         </>
     )
+}
+
+BurgerConstructor.propTypes = {
+    "data": PropTypes.arrayOf(ingredientPropType)
 }

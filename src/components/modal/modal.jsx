@@ -33,13 +33,6 @@ export default function Modal({children, isOpen, onClose, title}) {
     return null
   }
 
-  Modal.propTypes = {
-    "children": PropTypes.object,
-    "isOpen": PropTypes.bool,
-    "onClose": PropTypes.func,
-    "title": PropTypes.string,
-  }
-
   return (
     isOpen && createPortal(
       <div className={`${styles.modal}`}>
@@ -58,5 +51,11 @@ export default function Modal({children, isOpen, onClose, title}) {
       </div>
     , modalRoot)
     )
-  }
-  
+}
+
+Modal.propTypes = {
+  "children": PropTypes.object,
+  "isOpen": PropTypes.bool,
+  "onClose": PropTypes.func,
+  "title": PropTypes.string,
+}
