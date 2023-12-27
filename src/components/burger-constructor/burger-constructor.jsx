@@ -1,4 +1,5 @@
-import styles from "./burger-constructor.module.css"
+
+import styles from "./burger-constructor.module.css";
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,12 +7,14 @@ import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from "../modal/modal"
 import useModal from "../../hooks/useModal"
 import OrderDetails from "../order-details/order-details"
-import PropTypes from 'prop-types'
-import { ingredientPropType } from "../../utils/prop-types"
+// Redux
+import { useSelector } from "react-redux";
 
-export default function BurgerConstructor({data}) {
-    const bun = data.find(item => item.type === "bun")
-    const ingredients = data.filter(item => {
+export default function BurgerConstructor() {
+    const { items } = useSelector(store => store.ingredients);
+
+    const bun = items.find(item => item.type === "bun")
+    const ingredients = items.filter(item => {
         return item.type !== "bun"
     })
 
@@ -68,8 +71,4 @@ export default function BurgerConstructor({data}) {
             </Modal>
         </>
     )
-}
-
-BurgerConstructor.propTypes = {
-    "data": PropTypes.arrayOf(ingredientPropType)
 }

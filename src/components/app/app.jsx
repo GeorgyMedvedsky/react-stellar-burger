@@ -1,50 +1,39 @@
-import { useState, useEffect } from "react";
-import styles from "./app.module.css";
+// React
+import { useEffect } from 'react';
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { getIngredients } from '../../services/actions/ingredients';
+// Components
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients"
 import BurgerConstructor from "../burger-constructor/burger-constructor"
-
-const URL = 'https://norma.nomoreparties.space/api/ingredients';
+// Styles
+import styles from "./app.module.css";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const {items, itemsRequest, itemsFailed} = useSelector(store => store.ingredients)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if(isLoading) {
-      const fetchData = async () => {
-        try{
-          const res = await fetch(URL);
-          const result = res.ok ? await res.json() : console.log('Ошибка:', res.status)
-          setData(result.data);
-          setIsLoading(false);
-        } catch(err) {
-          console.log(err);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-      fetchData();
-    }
-  }, [isLoading]);
-  
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  if(itemsRequest) return <p className={`text text_type_main-medium`}>Загрузка...</p>;
+  if(itemsFailed) return <p className={`text text_type_main-medium`}>Нет доступных данных.</p>;
+
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.content}>
-        {isLoading ? (
-          <p className={`text text_type_main-medium`}>Загрузка...</p>
-        ) : data.length > 0 ? (
+        {items.length > 0 &&
           <>
-            <BurgerIngredients data={data} />
-            <BurgerConstructor data={data} />
+            <BurgerIngredients />
+            <BurgerConstructor />
           </>
-        ) : (
-          <p className={`text text_type_main-medium`}>Нет доступных данных.</p>
-        )}
+        }
       </main>
     </div>
   );
-}
+};
 
 export default App;

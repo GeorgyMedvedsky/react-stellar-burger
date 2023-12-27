@@ -1,7 +1,10 @@
-import styles from './ingredients-category.module.css'
-import IngredientItem from '../ingredient-item/ingredient-item'
-import PropTypes from 'prop-types'
-import { ingredientPropType } from '../../../utils/prop-types'
+// Components
+import IngredientItem from '../ingredient-item/ingredient-item';
+// Styles
+import styles from './ingredients-category.module.css';
+// PropTypes
+import PropTypes from 'prop-types';
+import { ingredientPropType } from '../../../utils/prop-types';
 
 const titles = {
     'bun': 'Булки',

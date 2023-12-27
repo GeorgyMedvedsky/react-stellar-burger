@@ -1,16 +1,21 @@
-import { useState, useRef, useMemo } from 'react'
-import styles from './burger-ingredients.module.css'
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import IngredientsCategory from './ingredients-category/ingredients-category'
-import PropTypes from 'prop-types'
-import { ingredientPropType } from '../../utils/prop-types'
+// React
+import { useState, useRef, useMemo } from 'react';
+// Redux
+import { useSelector } from 'react-redux';
+// Components
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientsCategory from './ingredients-category/ingredients-category';
+// Styles
+import styles from './burger-ingredients.module.css';
 
-export default function BurgerIngredients({data}) {
+export default function BurgerIngredients() {
+    const { items } = useSelector(store => store.ingredients);
+
     const [current, setCurrent] = useState('Бургер')
 
-    const buns = useMemo(() => data.filter(item => item.type === 'bun'), [data])
-    const fillings = useMemo(() => data.filter(item => item.type === 'main'), [data])
-    const sauces = useMemo(() => data.filter(item => item.type === 'sauce'), [data])
+    const buns = useMemo(() => items.filter(item => item.type === 'bun'), [items])
+    const fillings = useMemo(() => items.filter(item => item.type === 'main'), [items])
+    const sauces = useMemo(() => items.filter(item => item.type === 'sauce'), [items])
 
     const scrollTo = (type, ref) => {
         setCurrent(type);
@@ -50,8 +55,4 @@ export default function BurgerIngredients({data}) {
             </div>
         </section>
   )
-}
-
-BurgerIngredients.propTypes = {
-    "data": PropTypes.arrayOf(ingredientPropType)
 }
