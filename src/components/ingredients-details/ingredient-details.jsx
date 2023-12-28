@@ -1,12 +1,16 @@
-import styles from './ingredient-details.module.css'
-import { ingredientPropType } from '../../utils/prop-types'
+import styles from './ingredient-details.module.css';
+// Redux
+import { useDispatch } from 'react-redux';
+import { setCurrentItem } from '../../services/actions/currentIngredient';
+import { useEffect } from 'react';
 
-export default function IngredientDetails({data}) {
-  const {image, name, calories, proteins, fat, carbohydrates} = data
+export default function IngredientDetails({item}) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCurrentItem(item))
+  }, [dispatch, item])
 
-  IngredientDetails.propTypes = {
-    'data': ingredientPropType
-  }
+  const {image, name, calories, proteins, fat, carbohydrates} = item;
   
   return (
     <>

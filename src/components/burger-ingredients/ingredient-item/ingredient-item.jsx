@@ -6,6 +6,7 @@ import IngredientDetails from '../../ingredients-details/ingredient-details';
 import { ingredientPropType } from '../../../utils/prop-types';
 
 export default function IngredientItem({dataItem}) {
+    
     const {image, price, name} = dataItem;
     const {isModalOpen, handleOpenModal, handleCloseModal} = useModal()
     
@@ -23,7 +24,7 @@ export default function IngredientItem({dataItem}) {
             </div>
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={'Детали ингредиента'}>
-                <IngredientDetails data={dataItem}/>
+                <IngredientDetails item={dataItem}/>
             </Modal>
         </>
     )

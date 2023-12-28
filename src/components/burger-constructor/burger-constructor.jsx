@@ -11,7 +11,7 @@ import OrderDetails from "../order-details/order-details"
 import { useSelector } from "react-redux";
 
 export default function BurgerConstructor() {
-    const { items } = useSelector(store => store.ingredients);
+    const { items } = useSelector(store => store.ingredientsInConstructor);
 
     const bun = items.find(item => item.type === "bun")
     const ingredients = items.filter(item => {

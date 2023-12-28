@@ -1,5 +1,5 @@
 // React
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 // Redux
 import { useSelector } from 'react-redux';
 // Components
@@ -11,11 +11,11 @@ import styles from './burger-ingredients.module.css';
 export default function BurgerIngredients() {
     const { items } = useSelector(store => store.ingredients);
 
-    const [current, setCurrent] = useState('Бургер')
+    const [current, setCurrent] = useState('Бургер');
 
-    const buns = useMemo(() => items.filter(item => item.type === 'bun'), [items])
-    const fillings = useMemo(() => items.filter(item => item.type === 'main'), [items])
-    const sauces = useMemo(() => items.filter(item => item.type === 'sauce'), [items])
+    const buns = useMemo(() => items.filter(item => item.type === 'bun'), [items]);
+    const fillings = useMemo(() => items.filter(item => item.type === 'main'), [items]);
+    const sauces = useMemo(() => items.filter(item => item.type === 'sauce'), [items]);
 
     const scrollTo = (type, ref) => {
         setCurrent(type);
@@ -25,6 +25,27 @@ export default function BurgerIngredients() {
     const bunsRef = useRef(null);
     const fillingsRef = useRef(null);
     const saucesRef = useRef(null);
+
+    const onScroll = useCallback(() => {
+        const bunsPos = bunsRef.current.getBoundingClientRect().top;
+        const saucesPos = saucesRef.current.getBoundingClientRect().top;
+        const fillingsPos = fillingsRef.current.getBoundingClientRect().top;
+        
+        if (bunsPos < window.innerHeight && bunsPos > 0) {
+            setCurrent('Бургер');
+        } else if (saucesPos < window.innerHeight && saucesPos > 0) {
+            setCurrent('Соусы');
+        } else if (fillingsPos < window.innerHeight && fillingsPos > 0) {
+            setCurrent('Начинки');
+        }
+    }, [bunsRef, saucesRef, fillingsRef]);
+
+    useEffect(() => {
+        const scrollContainer = document.querySelector(`.${styles.burgerIngredients__items}`);
+        scrollContainer.addEventListener('scroll', onScroll);
+
+        return () => scrollContainer.removeEventListener('scroll', onScroll);
+    }, [onScroll]);
 
     return (
         <section className={styles.burgerIngredients}>
