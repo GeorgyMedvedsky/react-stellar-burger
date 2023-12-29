@@ -1,13 +1,15 @@
 import styles from './ingredient-details.module.css';
 // Redux
 import { useDispatch } from 'react-redux';
-import { setCurrentItem } from '../../services/actions/currentIngredient';
+import { setViewedItem, clearViewedItem } from '../../services/actions/viewedIngredient';
 import { useEffect } from 'react';
 
 export default function IngredientDetails({item}) {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setCurrentItem(item))
+    dispatch(setViewedItem(item));
+
+    return dispatch(clearViewedItem());
   }, [dispatch, item])
 
   const {image, name, calories, proteins, fat, carbohydrates} = item;
