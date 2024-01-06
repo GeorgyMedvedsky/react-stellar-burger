@@ -4,14 +4,20 @@ import Modal from '../../modal/modal';
 import useModal from '../../../hooks/useModal';
 import IngredientDetails from '../../ingredients-details/ingredient-details';
 import { ingredientPropType } from '../../../utils/prop-types';
+import { useDrag } from 'react-dnd';
 
 export default function IngredientItem({dataItem}) {
     const {image, price, name} = dataItem;
     const {isModalOpen, handleOpenModal, handleCloseModal} = useModal();
+
+    const [, dragRef] = useDrag({
+        type: 'ingredient',
+        item: {...dataItem}
+    });
     
     return (
         <>
-            <div className={styles.ingredientItem} onClick={handleOpenModal}>
+            <div className={styles.ingredientItem} onClick={handleOpenModal} ref={dragRef}>
                 <img src={image} alt={name} />
                 <p className={`${styles.ingredientItem__price} text text_type_digits-default mt-2 mb-2`} >
                     <span className='mr-4'>{price}</span>

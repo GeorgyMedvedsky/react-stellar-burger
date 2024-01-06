@@ -8,33 +8,38 @@ import Modal from "../modal/modal"
 import useModal from "../../hooks/useModal"
 import OrderDetails from "../order-details/order-details"
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+import { addIngredient } from "../../services/actions/ingredientsInConstructor";
 
 export default function BurgerConstructor() {
-    const { items } = useSelector(store => store.ingredientsInConstructor);
+    const { bun, ingredients } = useSelector(state => state.ingredientsInConstructor);
+    const dispatch = useDispatch();
 
-    const bun = items.find(item => item.type === "bun")
-    const ingredients = items.filter(item => {
-        return item.type !== "bun"
-    })
+    const {isModalOpen, handleOpenModal, handleCloseModal} = useModal();
 
-    const {isModalOpen, handleOpenModal, handleCloseModal} = useModal()
+    const [, dropTarget] = useDrop({
+        accept: 'ingredient',
+        drop(item) {
+            dispatch(addIngredient(item))
+        }
+    });
 
     return (
-        <>
-            <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 `}>
+        <>  
+            <section className={`${styles.burgerConstructor} pt-25 pl-4 pr-4 `} ref={dropTarget}>
                 <div className={styles.constructor}>
-                    <ConstructorElement
+                    {/* <ConstructorElement
                         type="top"
                         isLocked={true}
                         text={`${bun.name} (верх)`}
                         price={bun.price}
                         thumbnail={bun.image}
-                    />
-                    <ul className={`${styles.constructor__items} custom-scroll`}>
+                    /> */}
+                    <ul className={`${styles.constructor__items} custom-scroll`} ref={dropTarget}>
                         {ingredients.map(item => {
                             return (
-                                <li className={styles.constructor__item} key={item._id}>
+                                <li className={styles.constructor__item} key={item.id}>
                                     <DragIcon type="primary" />
                                     <ConstructorElement
                                         text={item.name}
@@ -46,13 +51,13 @@ export default function BurgerConstructor() {
                             )
                         })}                    
                     </ul>
-                    <ConstructorElement
+                    {/* <ConstructorElement
                         type="bottom"
                         isLocked={true}
                         text={`${bun.name} (низ)`}
                         price={bun.price}
                         thumbnail={bun.image}
-                    />
+                    /> */}
                 </div>
                 <div className={`${styles.info} mt-10`}>
                     <p className='text text_type_digits-medium mr-10'>

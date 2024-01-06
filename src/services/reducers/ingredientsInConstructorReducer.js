@@ -1,36 +1,19 @@
 import {
-    GET_ITEMS_REQUEST,
-    GET_ITEMS_SUCCESS,
-    GET_ITEMS_FAILED
-} from '../actions/ingredients.js';
+    ADD_INGREDIENT,
+
+} from "../actions/ingredientsInConstructor";
 
 const initialState = {
-    items: [],
-    itemsRequest: false,
-    itemsFailed: false
+    bun: null,
+    ingredients: []
 };
 
 export const ingredientsInConstructorReducer = (state = initialState, action) => {
     switch(action.type) {
-        case GET_ITEMS_REQUEST: {
+        case ADD_INGREDIENT: {
             return {
                 ...state,
-                itemsRequest: true,
-                itemsFailed: false
-            };
-        }
-        case GET_ITEMS_SUCCESS: {
-            return {
-                ...state,
-                itemsRequest: false,
-                items: action.items
-            };
-        }
-        case GET_ITEMS_FAILED: {
-            return {
-                ...state,
-                itemsRequest: false,
-                itemsFailed: true
+                ingredients: [...state.ingredients, action.item]
             };
         }
         default: {
