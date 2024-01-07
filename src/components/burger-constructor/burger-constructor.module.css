@@ -1,5 +1,5 @@
 .burgerConstructor {
-    width: 600px;
+    max-width: 600px;
     margin-right: auto;
     display: flex;
     flex-direction: column;
@@ -7,7 +7,6 @@
 .constructor {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
     gap: 10px;
     height: 700px;
@@ -22,6 +21,14 @@
     max-height: 756px;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+.constructor__items_empty{
+    border: 1px dashed rgb(79, 79, 79);
+    height: 100%;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .constructor__item {
     display: flex;
